@@ -3,11 +3,8 @@ import { OGImageRoute } from 'astro-og-canvas';
 import { allPages } from '~/content';
 import { rtlLanguages } from '~/languages';
 import { getLangFromSlug } from '~/util/path-utils';
-import { fetchBrandFont } from './_fetchFont';
 
 type OGImageOptions = Awaited<ReturnType<Parameters<typeof OGImageRoute>[0]['getImageOptions']>>;
-
-const brandFont = await fetchBrandFont();
 
 /** Paths for all of our Markdown content we want to generate OG images for. */
 const paths = process.env.SKIP_OG ? [] : allPages;
@@ -80,26 +77,19 @@ export const { getStaticPaths, GET } = OGImageRoute({
 				},
 			},
 			fonts: [
-				brandFont,
-
+				'.src/pages/open-graph/_fonts/brand/brand-500-normal.otf',
 				'./src/pages/open-graph/_fonts/inter/inter-400-normal.ttf',
 				'./src/pages/open-graph/_fonts/inter/inter-500-normal.ttf',
-
 				'./src/pages/open-graph/_fonts/noto-sans/noto-400-normal.ttf',
 				'./src/pages/open-graph/_fonts/noto-sans/noto-500-normal.ttf',
-
 				'./src/pages/open-graph/_fonts/noto-sans/chinese-simplified-400-normal.otf',
 				'./src/pages/open-graph/_fonts/noto-sans/chinese-simplified-500-normal.ttf',
-
 				'./src/pages/open-graph/_fonts/noto-sans/chinese-traditional-400-normal.otf',
 				'./src/pages/open-graph/_fonts/noto-sans/chinese-traditional-500-normal.ttf',
-
 				'./src/pages/open-graph/_fonts/noto-sans/japanese-400-normal.ttf',
 				'./src/pages/open-graph/_fonts/noto-sans/japanese-500-normal.ttf',
-
 				'./src/pages/open-graph/_fonts/noto-sans/arabic-400-normal.ttf',
 				'./src/pages/open-graph/_fonts/noto-sans/arabic-500-normal.ttf',
-
 				'./src/pages/open-graph/_fonts/noto-sans/korean-400-normal.otf',
 				'./src/pages/open-graph/_fonts/noto-sans/korean-500-normal.ttf',
 			].filter((val): val is string => typeof val === 'string'),
